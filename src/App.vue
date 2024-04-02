@@ -58,7 +58,6 @@ const movieStore = useMovieStore();
   will-change: filter;
   transition: filter 300ms;
   filter: drop-shadow(0 0 2em #646cffaa);
-  outline: none;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #9fa3faaa);

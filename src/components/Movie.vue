@@ -11,7 +11,10 @@
       </div>
       <span class="movie-overview">{{ movie.overview }}</span>
       <div class="movie-buttons">
-        <button class="btn movie-buttons-watched">
+        <button
+          class="btn movie-buttons-watched"
+          @click="movieStore.toggleWatched(movie.id)"
+        >
           <span v-if="!movie.isWatched">Watched</span>
           <span v-else>Unwatched</span>
         </button>
@@ -22,6 +25,10 @@
 </template>
 
 <script setup>
+import { useMovieStore } from "../stores/MovieStore.js";
+
+const movieStore = useMovieStore();
+
 const props = defineProps({
   movie: {
     type: Object,
@@ -37,7 +44,7 @@ const props = defineProps({
   grid-template-columns: 200px 1fr;
   column-gap: 30px;
   margin-bottom: 20px;
-  border: 2px solid #efefef;
+  border: 1px solid #efefef;
   padding: 10px;
   border-radius: 10px;
 }
@@ -69,6 +76,7 @@ const props = defineProps({
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
 }
 
 .movie-buttons-watched {
