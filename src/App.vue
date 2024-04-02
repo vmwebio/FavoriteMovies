@@ -7,10 +7,16 @@
       <h1>Movies Favorite</h1>
     </header>
     <div class="tabs">
-      <button :class="['btn', { btn_green: movieStore.activeTab === 1 }]">
+      <button
+        :class="['btn', { btn_green: movieStore.activeTab === 1 }]"
+        @click="setTab(1)"
+      >
         Favorite
       </button>
-      <button :class="['btn', { btn_green: movieStore.activeTab === 2 }]">
+      <button
+        :class="['btn', { btn_green: movieStore.activeTab === 2 }]"
+        @click="setTab(2)"
+      >
         Search
       </button>
     </div>
@@ -38,6 +44,10 @@
 import Movie from "./components/Movie.vue";
 import { useMovieStore } from "./stores/MovieStore.js";
 
+const setTab = (id) => {
+  movieStore.setActiveTab(id)
+}
+
 const movieStore = useMovieStore();
 </script>
 
@@ -46,8 +56,9 @@ const movieStore = useMovieStore();
   height: 6em;
   padding: 1em;
   will-change: filter;
-  transition: filter 300ms;  
+  transition: filter 300ms;
   filter: drop-shadow(0 0 2em #646cffaa);
+  outline: none;
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #9fa3faaa);
@@ -65,7 +76,7 @@ const movieStore = useMovieStore();
   margin: 0 10px;
   border-radius: 10px;
   cursor: pointer;
-  background: darkorange; 
+  background: darkorange;
   border: 1px solid transparent;
   transition: border-color 0.25s;
   padding: 0;

@@ -27,12 +27,12 @@ export const useMovieStore = defineStore("movieStore", {
       return this.movies.filter((el) => el.isWatched);
     },
     totalCountMovies() {
-        return this.movies.length;
-    }
+      return this.movies.length;
+    },
   },
   actions: {
     setActiveTab(id) {
-        this.activeTab = id;
+      this.activeTab = id;
     },
-  }
+  },
 });
