@@ -1,15 +1,36 @@
-<script setup>
-
-</script>
-
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <h1>Movies Favorite</h1>
-  </div>
+  <main>
+    <header>
+      <a href="https://vitejs.dev" target="_blank">
+        <img src="/logo.svg" class="logo" alt="Vite logo" />
+      </a>
+      <h1>Movies Favorite</h1>
+    </header>
+    <div class="tabs">
+      <button :class="['btn', { btn_green: movieStore.activeTab === 1 }]">
+        Favorite
+      </button>
+      <button :class="['btn', { btn_green: movieStore.activeTab === 2 }]">
+        Search
+      </button>
+    </div>
+    <div class="movies">
+      <h3>All Movies</h3>
+      <Movie
+        v-for="movie of movieStore.movies"
+        :key="movie.id"
+        :movie="movie"
+      />
+    </div>
+  </main>
 </template>
+
+<script setup>
+import Movie from "./components/Movie.vue";
+import { useMovieStore } from "./stores/MovieStore.js";
+
+const movieStore = useMovieStore();
+</script>
 
 <style scoped>
 .logo {
@@ -20,5 +41,10 @@
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 </style>
