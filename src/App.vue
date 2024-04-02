@@ -14,7 +14,7 @@
         Search
       </button>
     </div>
-    <div class="movies">
+    <div class="movies" v-if="movieStore.activeTab === 1">
       <h3>All Movies</h3>
       <Movie
         v-for="movie of movieStore.movies"
@@ -22,6 +22,7 @@
         :movie="movie"
       />
     </div>
+    <div class="search" v-else>Search</div>
   </main>
 </template>
 
