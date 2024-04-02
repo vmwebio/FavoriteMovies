@@ -1,7 +1,7 @@
 <template>
   <main>
     <header>
-      <a href="https://vitejs.dev" target="_blank">
+      <a href="/" target="_self">
         <img src="/logo.svg" class="logo" alt="Vite logo" />
       </a>
       <h1>Movies Favorite</h1>
@@ -15,7 +15,15 @@
       </button>
     </div>
     <div class="movies" v-if="movieStore.activeTab === 1">
-      <h3>All Movies</h3>
+      <div>
+        <h3>Watched Movies</h3>
+        <Movie
+          v-for="movie of movieStore.watchedMovies"
+          :key="movie.id"
+          :movie="movie"
+        />
+      </div>
+      <h3>All Movies (count: {{ movieStore.totalCountMovies }})</h3>
       <Movie
         v-for="movie of movieStore.movies"
         :key="movie.id"
@@ -47,5 +55,24 @@ const movieStore = useMovieStore();
   display: flex;
   justify-content: center;
   margin-bottom: 30px;
+  gap: 10px;
+}
+.btn {
+  width: 100px;
+  height: 40px;
+  font-size: 1em;
+  margin: 0 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: darkorange; 
+  border: 1px solid transparent;
+  transition: border-color 0.25s;
+  padding: 0;
+}
+.btn:hover {
+  border-color: lemonchiffon;
+}
+.btn_green {
+  background: green;
 }
 </style>
