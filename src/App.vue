@@ -44,12 +44,13 @@ const movieStore = useMovieStore();
 <style scoped>
 .logo {
   height: 6em;
-  padding: 1.5em;
+  padding: 1em;
   will-change: filter;
-  transition: filter 300ms;
+  transition: filter 300ms;  
+  filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em #9fa3faaa);
 }
 .tabs {
   display: flex;

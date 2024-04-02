@@ -30,4 +30,9 @@ export const useMovieStore = defineStore("movieStore", {
         return this.movies.length;
     }
   },
+  actions: {
+    setActiveTab(id) {
+        this.activeTab = id;
+    },
+  }
 });
