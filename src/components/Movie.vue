@@ -18,7 +18,9 @@
           <span v-if="!movie.isWatched">Watched</span>
           <span v-else>Unwatched</span>
         </button>
-        <button class="btn movie-buttons-delete">Delete</button>
+        <button class="btn movie-buttons-delete"
+        @click="movieStore.deleteMovie(movie.id)"
+        >Delete</button>
       </div>
     </div>
   </div>
