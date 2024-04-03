@@ -9,9 +9,11 @@ export const useSearchStore = defineStore("searchStore", {
   }),
   actions: {
     async getMovies(search) {
+      this.loader = true;
       const res = await fetch(`${url}${search}`);
       const data = await res.json();
       this.movies = data.results;
+      this.loader = false;
     },
   },
 });
