@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="">
+  <form @submit.prevent="searchStore.getMovies(searchMovie)">
     <input
       type="text"
       class="search-input"
@@ -11,7 +11,9 @@
 
 <script setup>
 import { ref } from "vue";
+import { useSearchStore } from "../stores/SearchStore.js";
 
+const searchStore = useSearchStore();
 const searchMovie = ref("");
 </script>
 
