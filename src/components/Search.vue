@@ -1,4 +1,5 @@
 <template>
+  <!-- Форма для поиска фильмов -->
   <form @submit.prevent="searchStore.getMovies(searchMovie)">
     <input
       type="text"
@@ -7,7 +8,9 @@
       v-model="searchMovie"
     />
   </form>
+  <!-- Компонент загрузки, отображается, когда идет поиск -->
   <Loader v-if="searchStore.loader" />
+  <!-- Отображение списка найденных фильмов -->
   <div v-else>
     <Movie
       v-for="movie of searchStore.movies"
@@ -24,7 +27,9 @@ import Movie from "../components/Movie.vue";
 import { ref } from "vue";
 import { useSearchStore } from "../stores/SearchStore.js";
 
+// Получаем доступ к хранилищу поиска фильмов
 const searchStore = useSearchStore();
+// Переменная для хранения запроса поиска
 const searchMovie = ref("");
 </script>
 

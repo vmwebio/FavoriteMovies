@@ -1,23 +1,29 @@
 <template>
   <div class="movie">
+    <!-- Отображение постера фильма -->
     <img
       :src="`https://image.tmdb.org/t/p/w300_and_h450_bestv2${movie.poster_path}`"
       :alt="movie.original_title"
       class="movie-img"
     />
     <div>
+      <!-- Название и дата выпуска фильма -->
       <div class="movie-name">
         {{ movie.original_title }} ({{ movie.release_date }})
       </div>
+      <!-- Описание фильма -->
       <span class="movie-overview">{{ movie.overview }}</span>
+      <!-- Кнопки для управления фильмами, если это не поиск -->
       <div class="movie-buttons" v-if="!isSearch">
         <button
           class="btn movie-buttons-watched"
           @click="movieStore.toggleWatched(movie.id)"
         >
+        <!-- Переключение состояния "просмотрен" / "не просмотрен" -->
           <span v-if="!movie.isWatched">Watched</span>
           <span v-else>Unwatched</span>
         </button>
+        <!-- Кнопка для удаления фильма -->
         <button
           class="btn movie-buttons-delete"
           @click="movieStore.deleteMovie(movie.id)"
@@ -25,6 +31,7 @@
           Delete
         </button>
       </div>
+      <!-- Кнопка для добавления фильма -->
       <div class="movie-buttons" v-else>
         <button
           class="btn btn_blue"
@@ -41,9 +48,11 @@
 import { useMovieStore } from "../stores/MovieStore.js";
 import { useSearchStore } from "../stores/SearchStore.js";
 
+// Получаем доступ к хранилищам
 const movieStore = useMovieStore();
 const searchStore = useSearchStore();
 
+// Определяем входные параметры компонента
 const props = defineProps({
   movie: {
     type: Object,
@@ -59,6 +68,8 @@ const props = defineProps({
 </script>
 
 <style scoped>
+
+/* карточка фильма */
 .movie {
   display: grid;
   grid-template-columns: 200px 1fr;
@@ -73,20 +84,21 @@ const props = defineProps({
   margin-right: 10px;
 }
 
+/* изображения фильма */
 .movie-img {
   width: 200px;
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
 }
-
+/* название фильма */
 .movie-name {
   display: flex;
   align-items: center;
   font-size: 20px;
   margin-bottom: 20px;
 }
-
+/* описание фильма */
 .movie-overview {
   display: block;
   margin-bottom: 20px;
@@ -98,7 +110,7 @@ const props = defineProps({
   justify-content: center;
   gap: 10px;
 }
-
+/* кнопка "Просмотрено" */
 .movie-buttons-watched {
   color: #fff;
   background: #1eb4c3;
@@ -108,7 +120,7 @@ const props = defineProps({
   width: 15px;
   margin-left: 10px;
 }
-
+/* кнопка "Удалить" */
 .movie-buttons-delete {
   color: #fff;
   background: #ff2a2a;

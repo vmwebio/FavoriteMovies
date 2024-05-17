@@ -1,10 +1,12 @@
 <template>
   <main>
     <header class="header">
+      <!-- Логотип и заголовок -->
       <img src="/logo.svg" alt="logo" class="logo" />
       <h2>My Favorite Movies</h2>
     </header>
     <div class="tabs">
+      <!-- Кнопки для переключения вкладок -->
       <button
         :class="['btn', { btn_green: movieStore.activeTab === 1 }]"
         @click="setTab(1)">
@@ -15,8 +17,9 @@
         @click="setTab(2)">
         Search
       </button>
-    </div>
+    </div>    
     <div class="movies" v-if="movieStore.activeTab === 1">
+      <!-- Отображение просмотренных фильмов -->
       <div>
         <h3>Watched Movies (count: {{ movieStore.watchedMovies.length }})</h3>
         <Movie
@@ -24,12 +27,14 @@
           :key="movie.id"
           :movie="movie" />
       </div>
+      <!-- Отображение всех фильмов -->
       <h3>All Movies (count: {{ movieStore.totalCountMovies }})</h3>
       <Movie
         v-for="movie of movieStore.movies"
         :key="movie.id"
         :movie="movie" />
     </div>
+    <!-- Компонент поиска фильмов -->
     <div class="search" v-else>
       <Search />
     </div>
@@ -41,10 +46,12 @@ import Search from "./components/Search.vue";
 import Movie from "./components/Movie.vue";
 import { useMovieStore } from "./stores/MovieStore.js";
 
+// Функция для установки активной вкладки
 const setTab = (id) => {
   movieStore.setActiveTab(id);
 };
 
+// Получаем доступ к хранилищу фильмов
 const movieStore = useMovieStore();
 </script>
 
