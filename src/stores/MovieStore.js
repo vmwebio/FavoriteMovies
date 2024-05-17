@@ -1,45 +1,47 @@
 import { defineStore } from "pinia";
+import { ref, computed, watch } from "vue";
 
-export const useMovieStore = defineStore("movieStore", {
-  state: () => ({
-    movies: [
-      {
-        id: 1,
-        original_title: "Spider Man",
-        overview: "Lorem Ipsum",
-        poster_path: "",
-        release_date: "2002-05-01",
-        isWatched: false,
-      },
-      {
-        id: 2,
-        original_title: "Batman",
-        overview: "Lorem Ipsum",
-        poster_path: "",
-        release_date: "2022-03-01",
-        isWatched: true,
-      },
-    ],
-    activeTab: 1,
-  }),
-  getters: {
-    watchedMovies() {
-      return this.movies.filter((el) => el.isWatched);
+export const useMovieStore = defineStore("movieStore", () => {
+  const movies = ref([]);
+  const activeTab = ref(1);
+
+  const moviesInLocalStorage = localStorage.getItem("movies");
+  if (moviesInLocalStorage) {
+    movies.value = JSON.parse(moviesInLocalStorage)._value;
+  }
+
+  const watchedMovies = computed(() =>
+    movies.value.filter((el) => el.isWatched)
+  );
+
+  const totalCountMovies = computed(() => movies.value.length);
+
+  const setActiveTab = (id) => {
+    activeTab.value = id;
+  };
+  const toggleWatched = (id) => {
+    const idx = movies.value.findIndex((el) => el.id === id);
+    movies.value[idx].isWatched = !movies.value[idx].isWatched;
+  };
+  const deleteMovie = (id) => {
+    movies.value = movies.value.filter((el) => el.id !== id);
+  };
+
+  watch(
+    () => movies,
+    (state) => {
+      localStorage.setItem("movies", JSON.stringify(state));
     },
-    totalCountMovies() {
-      return this.movies.length;
-    },
-  },
-  actions: {
-    setActiveTab(id) {
-      this.activeTab = id;
-    },
-    toggleWatched(id) {
-        const idx = this.movies.findIndex((el) => el.id === id);
-        this.movies[idx].isWatched = !this.movies[idx].isWatched;
-    },
-    deleteMovie(id) {
-        this.movies = this.movies.filter((el) => el.id !== id);
-    },
-  },
+    { deep: true }
+  );
+
+  return {
+    movies,
+    activeTab,
+    watchedMovies,
+    totalCountMovies,
+    toggleWatched,
+    deleteMovie,
+    setActiveTab,
+  };
 });

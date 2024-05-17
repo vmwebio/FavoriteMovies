@@ -1,52 +1,49 @@
 <template>
   <main>
-    <header>
-      <a href="/" target="_self">
-        <img src="/logo.svg" class="logo" alt="Vite logo" />
-      </a>
-      <h1>Movies Favorite</h1>
+    <header class="header">
+      <img src="/logo.svg" alt="logo" class="logo" />
+      <h2>My Favorite Movies</h2>
     </header>
     <div class="tabs">
       <button
         :class="['btn', { btn_green: movieStore.activeTab === 1 }]"
-        @click="setTab(1)"
-      >
+        @click="setTab(1)">
         Favorite
       </button>
       <button
         :class="['btn', { btn_green: movieStore.activeTab === 2 }]"
-        @click="setTab(2)"
-      >
+        @click="setTab(2)">
         Search
       </button>
     </div>
     <div class="movies" v-if="movieStore.activeTab === 1">
       <div>
-        <h3>Watched Movies</h3>
+        <h3>Watched Movies (count: {{ movieStore.watchedMovies.length }})</h3>
         <Movie
           v-for="movie of movieStore.watchedMovies"
           :key="movie.id"
-          :movie="movie"
-        />
+          :movie="movie" />
       </div>
       <h3>All Movies (count: {{ movieStore.totalCountMovies }})</h3>
       <Movie
         v-for="movie of movieStore.movies"
         :key="movie.id"
-        :movie="movie"
-      />
+        :movie="movie" />
     </div>
-    <div class="search" v-else>Search</div>
+    <div class="search" v-else>
+      <Search />
+    </div>
   </main>
 </template>
 
 <script setup>
+import Search from "./components/Search.vue";
 import Movie from "./components/Movie.vue";
 import { useMovieStore } from "./stores/MovieStore.js";
 
 const setTab = (id) => {
-  movieStore.setActiveTab(id)
-}
+  movieStore.setActiveTab(id);
+};
 
 const movieStore = useMovieStore();
 </script>
@@ -82,6 +79,9 @@ const movieStore = useMovieStore();
 }
 .btn:hover {
   border-color: lemonchiffon;
+}
+.btn_blue {
+  background: rgb(107, 93, 231);
 }
 .btn_green {
   background: green;
